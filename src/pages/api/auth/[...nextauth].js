@@ -5,7 +5,9 @@ import clientPromise from "lib/mongodb"
 
 export const authOptions = {
   // Configure one or more authentication providers
-  adapter: MongoDBAdapter(clientPromise),
+  adapter: MongoDBAdapter(clientPromise,{
+    databaseName:"eventsea-main"
+  }),
   providers: [
     GoogleProvider({
         clientId: process.env.GOOGLE_CLIENT_ID,
