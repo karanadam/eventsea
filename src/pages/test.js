@@ -1,23 +1,20 @@
 
-import { useSession, signIn, signOut } from "next-auth/react"
 import Image from "next/image"
+import { useSupabaseClient, useSession, useSessionContext, useUser } from "@supabase/auth-helpers-react"
+import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs"
 
 export default function Home() {
-  const { data: session } = useSession()
+  const supabase = useSupabaseClient();
   return (
     <>
     <main>
-      
-      Hello {session?<>
-      <Image src={session.user.image} height={100} width={100} />
-      <p>{session.user.name}</p>
-      <button onClick={signOut}>Sign Out</button>
-      </>:
-      <>
-      <button onClick={signIn}>Sign In</button>
-      </>}
-      
+     
+      <button onClick={()=>{supabase.auth.signInWithOAuth({provider:"google"})}}>Sign in with Google</button>
+      <button onClick={()=>{supabase.auth.signOut()}}>Sign out</button>
     </main>
     </>
   )
 }
+
+
+
